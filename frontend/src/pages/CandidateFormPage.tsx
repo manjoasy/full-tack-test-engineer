@@ -44,7 +44,7 @@ const CandidateFormPage: React.FC = () => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<CandidateFormData>({
     control,
     name: 'skills',
   });
