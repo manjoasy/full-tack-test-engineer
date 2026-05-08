@@ -72,7 +72,7 @@ export const handlers = [
 
   // Mock create candidate
   http.post('/api/candidates', async ({ request }) => {
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, any>;
     return HttpResponse.json({
       success: true,
       data: { id: 'new-id', ...body },
@@ -81,7 +81,7 @@ export const handlers = [
 
   // Mock update candidate
   http.put('/api/candidates/:id', async ({ params, request }) => {
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, any>;
     return HttpResponse.json({
       success: true,
       data: { id: params.id, ...body },
