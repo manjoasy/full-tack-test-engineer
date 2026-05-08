@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCandidates, deleteCandidate } from '../api/candidates';
 import { CandidateStatus } from '../types';
-import { Plus, Search, Trash2, Eye, Filter } from 'lucide-react';
+import { Plus, Search, Trash2, Eye } from 'lucide-react';
 
 const CandidateListPage: React.FC = () => {
   const [page, setPage] = useState(1);

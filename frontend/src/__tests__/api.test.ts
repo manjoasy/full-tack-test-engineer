@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import * as api from '../api/candidates';
 import apiClient from '../api/client';
 import { CandidateStatus } from '../types';

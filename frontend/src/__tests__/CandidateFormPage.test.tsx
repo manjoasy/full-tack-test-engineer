@@ -24,11 +24,11 @@ const handlers = [
   }),
   http.post('/api/candidates', async ({ request }) => {
     const data = await request.json();
-    return HttpResponse.json({ success: true, data: { id: 'new', ...data as any } });
+    return HttpResponse.json({ success: true, data: { id: 'new', ...(data as any) } });
   }),
   http.put('/api/candidates/1', async ({ request }) => {
     const data = await request.json();
-    return HttpResponse.json({ success: true, data: { id: '1', ...data as any } });
+    return HttpResponse.json({ success: true, data: { id: '1', ...(data as any) } });
   }),
 ];
 
@@ -96,13 +96,13 @@ describe('CandidateFormPage', () => {
     const addButton = screen.getByLabelText(/ajouter une compétence/i);
     fireEvent.click(addButton);
 
-    const inputs = screen.getAllByRole('textbox');
+    const _inputs = screen.getAllByRole('textbox');
     // firstName, lastName, email, phone, position, and 2 skills
     // Actually, skills are 'textbox' but others are too.
     // Let's check skills specifically.
     
     await waitFor(() => {
-      expect(screen.getAllByRole('textbox').length).toBeGreaterThan(5);
+      expect(_inputs.length).toBeGreaterThan(5);
     });
   });
 
