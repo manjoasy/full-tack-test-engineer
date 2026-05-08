@@ -22,7 +22,8 @@ describe('Validate Middleware', () => {
       }),
     };
 
-    const middleware = validate(schema as { parse: (data: unknown) => unknown });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const middleware = validate(schema as any);
     middleware(mockReq as Request, mockRes as Response, nextFunction);
 
     expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
