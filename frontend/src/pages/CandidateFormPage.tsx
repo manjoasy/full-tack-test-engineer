@@ -14,7 +14,9 @@ const candidateSchema = z.object({
   phone: z.string().min(10, 'Numéro de téléphone invalide'),
   position: z.string().min(2, 'Le poste est requis'),
   experience: z.number().min(0, 'L\'expérience ne peut pas être négative').max(50),
-  skills: z.array(z.string().min(1, 'Compétence vide')).min(1, 'Au moins une compétence est requise'),
+  skills: z.array(z.object({
+    name: z.string().min(1, 'Compétence vide')
+  })).min(1, 'Au moins une compétence est requise'),
 });
 
 type CandidateFormData = z.infer<typeof candidateSchema>;
@@ -40,7 +42,7 @@ const CandidateFormPage: React.FC = () => {
   } = useForm<CandidateFormData>({
     resolver: zodResolver(candidateSchema),
     defaultValues: {
-      skills: [''],
+      skills: [{ name: '' }],
     },
   });
 
@@ -58,13 +60,13 @@ const CandidateFormPage: React.FC = () => {
         phone: candidateData.data.phone,
         position: candidateData.data.position,
         experience: candidateData.data.experience,
-        skills: candidateData.data.skills,
+        skills: candidateData.data.skills.map((s: string) => ({ name: s })),
       });
     }
   }, [candidateData, reset]);
 
   const mutation = useMutation({
-    mutationFn: (data: CandidateFormData) =>
+    mutationFn: (data: any) =>
       isEdit ? updateCandidate(id!, data) : createCandidate(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['candidates'] });
@@ -73,7 +75,11 @@ const CandidateFormPage: React.FC = () => {
   });
 
   const onSubmit = (data: CandidateFormData) => {
-    mutation.mutate(data);
+    const formattedData = {
+      ...data,
+      skills: data.skills.map(s => s.name)
+    };
+    mutation.mutate(formattedData);
   };
 
   if (isEdit && isLoadingCandidate) return <div data-testid="loader" className="loading-spinner"></div>;
@@ -133,7 +139,7 @@ const CandidateFormPage: React.FC = () => {
               {fields.map((field, index) => (
                 <div key={field.id} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <input
-                    {...register(`skills.${index}` as any)}
+                    {...register(`skills.${index}.name`)}
                     className="input"
                     style={{ width: '150px' }}
                     aria-label={`Compétence ${index + 1}`}
@@ -152,7 +158,7 @@ const CandidateFormPage: React.FC = () => {
               ))}
               <button
                 type="button"
-                onClick={() => append('')}
+                onClick={() => append({ name: '' })}
                 className="btn btn-outline"
                 style={{ padding: '0.5rem' }}
                 aria-label="Ajouter une compétence"
