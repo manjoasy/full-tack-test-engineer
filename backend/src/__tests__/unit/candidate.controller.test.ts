@@ -17,7 +17,7 @@ jest.mock('../../services/candidate.service', () => ({
 describe('Controller Error Handling', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
-  let nextFunction: NextFunction = jest.fn();
+  const nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
     mockReq = { params: { id: '123' }, query: {}, body: {} };

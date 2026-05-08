@@ -1,6 +1,5 @@
 import { logger } from '../../utils/logger';
 import fs from 'fs';
-import path from 'path';
 
 describe('Logger Coverage Tests', () => {
   it('should have initialized logger correctly', () => {

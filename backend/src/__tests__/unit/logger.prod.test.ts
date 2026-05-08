@@ -1,5 +1,3 @@
-import { config } from '../../config';
-
 describe('Logger Production Config', () => {
   const originalEnv = process.env.NODE_ENV;
 
@@ -14,9 +12,10 @@ describe('Logger Production Config', () => {
   it('should add file transports in production', () => {
     process.env.NODE_ENV = 'production';
     // We need to re-import config and logger to trigger the logic
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { logger } = require('../../utils/logger');
     
-    const fileTransports = logger.transports.filter((t: any) => t.filename);
+    const fileTransports = logger.transports.filter((t: { filename?: string }) => t.filename);
     expect(fileTransports.length).toBeGreaterThan(0);
   });
 });

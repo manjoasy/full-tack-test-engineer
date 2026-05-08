@@ -26,7 +26,7 @@ describe('Candidate Schemas', () => {
     });
 
     it('should reject missing firstName', () => {
-      const { firstName, ...data } = validCandidate;
+      const { firstName: _, ...data } = validCandidate;
       const result = createCandidateSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
@@ -54,7 +54,7 @@ describe('Candidate Schemas', () => {
     });
 
     it('should reject missing lastName', () => {
-      const { lastName, ...data } = validCandidate;
+      const { lastName: _, ...data } = validCandidate;
       const result = createCandidateSchema.safeParse(data);
       expect(result.success).toBe(false);
     });
@@ -71,7 +71,7 @@ describe('Candidate Schemas', () => {
     });
 
     it('should reject missing email', () => {
-      const { email, ...data } = validCandidate;
+      const { email: _, ...data } = validCandidate;
       const result = createCandidateSchema.safeParse(data);
       expect(result.success).toBe(false);
     });
@@ -126,7 +126,7 @@ describe('Candidate Schemas', () => {
     });
 
     it('should reject missing skills', () => {
-      const { skills, ...data } = validCandidate;
+      const { skills: _, ...data } = validCandidate;
       const result = createCandidateSchema.safeParse(data);
       expect(result.success).toBe(false);
     });

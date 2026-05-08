@@ -14,9 +14,13 @@ jest.mock('../../models/candidate.model', () => {
 });
 
 // Assign mocks to static methods
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Candidate.findOne as any) = jest.fn();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Candidate.find as any) = jest.fn();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Candidate.findOneAndUpdate as any) = jest.fn();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Candidate.countDocuments as any) = jest.fn();
 
 // Mock the logger
@@ -80,6 +84,7 @@ describe('CandidateService', () => {
 
     it('should throw 409 if email exists', async () => {
       (Candidate.findOne as jest.Mock).mockResolvedValue(mockCandidate);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await expect(service.create(mockCandidate as any)).rejects.toThrow('Un candidat avec cet email existe déjà');
     });
   });

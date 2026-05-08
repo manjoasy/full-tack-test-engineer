@@ -45,7 +45,7 @@ router.post('/login', validate(loginSchema), async (req: Request, res: Response)
     const token = jwt.sign(
       { userId: ADMIN_USER.id, username: ADMIN_USER.username },
       config.jwtSecret,
-      { expiresIn: config.jwtExpiresIn } as any
+      { expiresIn: config.jwtExpiresIn as jwt.SignOptions['expiresIn'] }
     );
 
     logger.info('Connexion réussie', { username });

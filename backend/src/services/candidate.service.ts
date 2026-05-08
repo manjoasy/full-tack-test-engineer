@@ -62,7 +62,7 @@ export class CandidateService {
     const limit = Math.min(100, Math.max(1, Number(params.limit) || 10));
     const skip = (page - 1) * limit;
 
-    const query: any = { isDeleted: false };
+    const query: mongoose.FilterQuery<ICandidate> = { isDeleted: false };
 
     // Strict type checking for all filters
     if (typeof params.status === 'string' && Object.values(CandidateStatus).includes(params.status as CandidateStatus)) {

@@ -1,7 +1,6 @@
 import request from 'supertest';
 import app from '../../app';
 import jwt from 'jsonwebtoken';
-import { logger } from '../../utils/logger';
 
 // Mock config to allow changing nodeEnv
 jest.mock('../../config', () => ({
@@ -72,14 +71,14 @@ describe('Middleware Coverage Tests', () => {
   describe('Error Middleware - Environment branches', () => {
     it('should show stack trace in development environment', async () => {
       // Change mocked config
-      (config as any).nodeEnv = 'development';
+      (config as { nodeEnv: string }).nodeEnv = 'development';
       
       const res = await request(app).get('/api/non-existent-route');
       
       expect(res.status).toBe(404);
       expect(res.body).toHaveProperty('stack');
       
-      (config as any).nodeEnv = 'test';
+      (config as { nodeEnv: string }).nodeEnv = 'test';
     });
   });
 });

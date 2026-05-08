@@ -1,17 +1,10 @@
 import { errorMiddleware, createAppError, notFoundMiddleware } from '../../middleware/error.middleware';
 import { Request, Response, NextFunction } from 'express';
-import { logger } from '../../utils/logger';
-
-jest.mock('../../utils/logger', () => ({
-  logger: {
-    error: jest.fn(),
-  },
-}));
 
 describe('Error Middleware', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
-  let nextFunction: NextFunction = jest.fn();
+  const nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
     mockReq = { method: 'GET', originalUrl: '/test' };

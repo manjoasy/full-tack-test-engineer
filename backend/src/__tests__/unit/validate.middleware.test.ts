@@ -1,11 +1,10 @@
 import { validate } from '../../middleware/validate.middleware';
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
 
 describe('Validate Middleware', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
-  let nextFunction: NextFunction = jest.fn();
+  const nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
     mockReq = { body: {} };
@@ -23,7 +22,7 @@ describe('Validate Middleware', () => {
       }),
     };
 
-    const middleware = validate(schema as any);
+    const middleware = validate(schema as { parse: (data: unknown) => unknown });
     middleware(mockReq as Request, mockRes as Response, nextFunction);
 
     expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
