@@ -7,6 +7,8 @@ const apiClient = axios.create({
   },
 });
 
+console.log('API Base URL:', apiClient.defaults.baseURL);
+
 // Add a request interceptor to include the JWT token
 apiClient.interceptors.request.use(
   (config) => {
